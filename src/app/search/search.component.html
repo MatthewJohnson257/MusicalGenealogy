@@ -1,0 +1,31 @@
+<body>
+  <div class="layout-container">
+    <main class="upper">
+      <br>
+      <h1>Search for a pianist:</h1>
+      <input class="form-control form-control-lg" type="text" id="searchText" [ngModel]="dummyVariable" (ngModelChange)="filterStudents()">
+      <br>
+      <table matSort (matSortChange)="sortData($any($event))" data-resizable="true" class="table table-bordered table-hover table-fit">
+        <thead>
+          <tr>
+            <th mat-sort-header="name" scope="col">Name</th>
+            <th mat-sort-header="birth" scope="col" style="max-width: 1.25rem;">Birth</th>
+            <th mat-sort-header="death" scope="col" style="max-width: 1.25rem;">Death</th>
+            <th scope="col">Students</th>
+            <th scope="col">Teachers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="pianistListRow" *ngFor="let pianist of pianistList | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" (click)="clickRow(pianist)">
+            <td>{{pianist.name}}</td>
+            <td>{{pianist.birth}}</td>
+            <td>{{pianist.death}}</td>
+            <td>{{getStudents(pianist)}}</td>
+            <td>{{getTeachers(pianist)}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <ngb-pagination [pageSize] = "pageSize" [collectionSize] = "collectionSize" [(page)] = "page" [maxSize]="5" aria-label="Default pagination"></ngb-pagination>
+    </main>
+  </div>
+</body>

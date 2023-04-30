@@ -1,0 +1,36 @@
+.container-fluid {
+  padding-left: 0rem;
+  padding-right: 0rem;
+  width: auto;
+}
+
+h1 {
+  margin-bottom: 0;
+}
+nav{
+  display: block;
+  padding-left: 1rem;
+  width: 100%;
+
+}
+nav .childNavItem{
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-style: solid;
+  border-color:beige;
+  border-radius: 1rem;
+}
+
+nav .childNavItem:hover {
+  color: white;
+  background-color: #627279;
+}
+
+nav .childNavItem:active {
+  background-color: black;
+}
+
+.website-logo {
+  color:aquamarine;
+  font-size: 2rem;
+}

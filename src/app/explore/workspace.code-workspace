@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "../../../../hello-world"
+		},
+		{
+			"path": "../../../../angular-tour-of-heroes"
+		},
+		{
+			"path": "../../../../MusicalHeritage_Ver_1_0"
+		},
+		{
+			"path": "../../.."
+		}
+	],
+	"settings": {}
+}

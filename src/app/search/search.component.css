@@ -1,0 +1,17 @@
+
+body {
+  margin-left: 2rem;
+  margin-right: 2rem;
+}
+
+
+.pianistListRow {
+  cursor : pointer;
+}
+
+td{
+  max-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

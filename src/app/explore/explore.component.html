@@ -1,0 +1,34 @@
+
+<body>
+<div class="parent-flex" id="parentScroll">
+  <svg class="canvas-row" id="dummyTopCanvas"></svg>
+  <ng-container *ngFor="let teacherRow of teachersRows; let i = index;">
+    <div class="btn-row" id="buttons{{i}}">
+      <div class="container-name" id="teacher{{teacher.id}}" (click)="clickPianist(teacher)" *ngFor="let teacher of teacherRow">
+        <a class="infoBubble">
+          <span>{{teacher.name}}</span><br>
+          <span *ngIf="teacher.birth != null">{{teacher.birth}}-</span>
+          <span *ngIf="teacher.death != null">{{teacher.death}}</span>
+          <span *ngIf="teacher.birth == null || teacher.death == null"><br></span>
+        </a>
+      </div>
+    </div>
+    <svg *ngIf="i < teachersRows.length - 1" id="canvas{{i}}" class="canvas-row"></svg>
+  </ng-container>
+  <ng-container *ngFor="let studentRow of studentsRows; let i = index;">
+    <div class="btn-row" *ngIf="i > 0" id="buttonsStudent{{i}}">
+      <div class="container-name" id="student{{student.id}}" (click)="clickPianist(student)" *ngFor="let student of studentRow">
+        <a class="infoBubble">
+          <span>{{student.name}}</span><br>
+          <span *ngIf="student.birth != null">{{student.birth}}-</span>
+          <span *ngIf="student.death != null">{{student.death}}</span>
+          <span *ngIf="student.birth == null || student.death == null"><br></span>
+        </a>
+      </div>
+    </div>
+    <svg *ngIf="i < studentsRows.length - 1" id="canvasStudent{{i}}" class="canvas-row"></svg>
+  </ng-container>
+
+  <svg class="canvas-row" id="dummyBottomCanvas"></svg>
+</div>
+</body>
