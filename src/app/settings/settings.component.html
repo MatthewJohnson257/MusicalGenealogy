@@ -1,0 +1,28 @@
+
+<body>
+    <br>
+    <h1>Settings</h1>
+    <hr>
+    <div class="settingsGroup">
+    <br>
+
+    <h2 (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed">Limit of 2nd+ degree connections: <span class="settingValue">{{settingMaxGrandchildren}}</span>
+        <div class="help">?</div>
+    </h2>
+    <div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+        <div class="card">
+            <div class="card-body" style="color: black;">
+                By default, connections of the second degree (student of a student or teacher of a teacher) or higher are capped at 3 per first degree connection. This is to prevent exceedingly large lineage trees.
+                For example, if person A taught 6 students, each of whom taught 6 of their own students, who then all taught 6 more students, that tree alone would include an unweildy 259 total
+                musicians. This setting is used to determine how many new branches, so to speak, any given branch can spawn. The larger the number, the more the lineage trees displayed grow exponentially in size.
+                To see the effect of this setting in action, I suggest looking at Nicola Porpora's lineage tree. 
+                Note: the number of first degree connections (direct students or teachers) are never capped.
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <input type="range" class="form-range" min="1" max="20" id="sliderMaxGrandchildren" (input)="setSlider($event)" value="{{settingMaxGrandchildren}}">
+    </div>
+    <hr>
+</body>

@@ -1,0 +1,53 @@
+body {
+    min-height: 100vh;
+    background-color: #3f3f3f;
+    text-align: center;
+    color: white;
+    padding-left: 10vw;
+    padding-right: 10vw;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+.settingsGroup{
+    padding-left: 7vw;
+    padding-right: 7vw;
+}
+
+.settingValue {
+    color: lightblue;
+}
+
+h2 {
+    text-align: left;
+    font-size: 3vw;
+}
+
+.card-body{
+    font-size: calc(7px + .5vw);
+    text-align: left;
+}
+
+input[type="range"]::-webkit-slider-thumb 
+{
+    background: aquamarine;
+}
+
+.help {
+    font: calc(10px + 2.5vw) Arial, sans-serif;
+    color: black;
+    background: aquamarine;
+    border-radius: 30%;
+    width: calc(10px + 2.5vw);
+    height: calc(10px + 2.5vw);
+    text-align: center;
+    transition: 0.5s;
+    float: right;
+    margin:auto;
+  }
+
+.help:hover{
+    cursor: pointer;
+}

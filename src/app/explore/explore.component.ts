@@ -20,6 +20,7 @@ export class ExploreComponent {
     link : "www.google.com"
   }
   parameterId : number;
+  defaultPerson : number;
   previousPianist : Pianist;
   studentList : String = "";
   teacherList : String = "";
@@ -31,23 +32,38 @@ export class ExploreComponent {
   studentsConnections : [[number[]]] = [[[]]];
   isResizing : boolean;
   isDown : boolean = false;
+  settingMaxGrandchildren : number;
 
 
 
   constructor( private route: ActivatedRoute, private location: Location, private router: Router){
+
     if (!(Number(this.route.snapshot.paramMap.has('id')))){
-      //console.log("trying to reroute");
-      this.router.navigate(['/explore', 1, 0]);
+      var tempDefaultPerson = localStorage.getItem("settingDefaultPerson");
+      this.defaultPerson = tempDefaultPerson !== null ? parseInt(tempDefaultPerson) : 1;
+      this.router.navigate(['/explore', this.defaultPerson, 0]);
+    } else {
+      localStorage.setItem("settingDefaultPerson", (Number(this.route.snapshot.paramMap.get('id'))).toString());
     }
 
-    this.parameterId = Number(this.route.snapshot.paramMap.has('id')) ? Number(this.route.snapshot.paramMap.get('id')) : 1;
+    var tempDefaultPerson = localStorage.getItem("settingDefaultPerson");
+    this.defaultPerson = tempDefaultPerson !== null ? parseInt(tempDefaultPerson) : 1;
+
+    if (localStorage.getItem("settingMaxGrandchildren") === null){
+      localStorage.setItem("settingMaxGrandchildren", "3");
+    }
+    var tempSetting = localStorage.getItem("settingMaxGrandchildren");
+    this.settingMaxGrandchildren = tempSetting !== null ? parseInt(tempSetting) : 3;
+
+
+    this.parameterId = Number(this.route.snapshot.paramMap.has('id')) ? Number(this.route.snapshot.paramMap.get('id')) : this.defaultPerson;
     this.previousPianist = this.selectedPianist;
     this.getSelectedStudents();
     this.getSelectedTeachers();
 
     this.dfsTeachers(this.parameterId, this.parameterId, 0);
 
-    this.dfsStudents(Number(this.route.snapshot.paramMap.has('id')) ? Number(this.route.snapshot.paramMap.get('id')) : 1, Number(this.route.snapshot.paramMap.has('id')) ? Number(this.route.snapshot.paramMap.get('id')) : 1, Number(this.route.snapshot.paramMap.has('id')) ? Number(this.route.snapshot.paramMap.get('id')) : 1, 0);
+    this.dfsStudents(Number(this.route.snapshot.paramMap.has('id')) ? Number(this.route.snapshot.paramMap.get('id')) : this.defaultPerson, Number(this.route.snapshot.paramMap.has('id')) ? Number(this.route.snapshot.paramMap.get('id')) : this.defaultPerson, Number(this.route.snapshot.paramMap.has('id')) ? Number(this.route.snapshot.paramMap.get('id')) : this.defaultPerson, 0);
 
     this.teachersRows.reverse();
     this.teachersConnections.reverse();
@@ -117,7 +133,7 @@ export class ExploreComponent {
     }
 
     if (depth > 0){
-      currTeacher?.teachers?.slice(0, 2).forEach((nextId : number) => {
+      currTeacher?.teachers?.slice(0, 4).forEach((nextId : number) => {
         this.dfsTeachers(nextId, id, depth + 1);
       });
     } else {
@@ -150,7 +166,7 @@ export class ExploreComponent {
     }
 
     if(depth > 0) {
-      currStudent?.students?.slice(0,4).forEach((nextId : number) => {
+      currStudent?.students?.slice(0,this.settingMaxGrandchildren).forEach((nextId : number) => {
         this.dfsStudents(origId, nextId, id, depth + 1);
       })
     }

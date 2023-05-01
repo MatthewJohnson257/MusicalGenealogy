@@ -9,6 +9,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { HomeComponent } from './home/home.component';
+import { SettingsComponent } from './settings/settings.component';
 
 
 
@@ -18,7 +19,8 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     SearchComponent,
     ExploreComponent,
-    HomeComponent
+    HomeComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
