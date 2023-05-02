@@ -1,5 +1,6 @@
 body {
     min-height: 100vh;
+    min-width: 100%;
     background-color: #3f3f3f;
     text-align: center;
     color: white;
@@ -33,6 +34,10 @@ h2 {
 input[type="range"]::-webkit-slider-thumb 
 {
     background: aquamarine;
+    height: calc(10px + 3vw);
+    width: calc(10px + 3vw);
+    border-radius: 50%;
+    margin-top: calc(-1.5vw);
 }
 
 .help {
