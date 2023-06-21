@@ -11,14 +11,7 @@ import { Location, NgIfContext } from '@angular/common';
   styleUrls: ['./explore.component.css']
 })
 export class ExploreComponent {
-  selectedPianist: Pianist =
-  { id : 135,
-    name : "The Oompa Loompa Man",
-    school : "Oberlin Conservatory",
-    students:[1,2],
-    teachers:[3,4],
-    link : "www.google.com"
-  }
+  selectedPianist: Pianist;
   parameterId : number;
   defaultPerson : number;
   previousPianist : Pianist;
@@ -33,6 +26,7 @@ export class ExploreComponent {
   isResizing : boolean;
   isDown : boolean = false;
   settingMaxGrandchildren : number;
+  pianistList : Pianist [] = UPDATEDPLAYERS;
 
 
 
@@ -57,6 +51,7 @@ export class ExploreComponent {
 
 
     this.parameterId = Number(this.route.snapshot.paramMap.has('id')) ? Number(this.route.snapshot.paramMap.get('id')) : this.defaultPerson;
+    this.selectedPianist = this.pianistList[0];
     this.previousPianist = this.selectedPianist;
     this.getSelectedStudents();
     this.getSelectedTeachers();
@@ -71,30 +66,7 @@ export class ExploreComponent {
 
   }
 
-  testMethod(e: MouseEvent){
-    var scrollWindow = document.getElementById("parentScroll");
-    var pos = {
-      left: scrollWindow?.scrollLeft,
-      top:  scrollWindow?.scrollTop,
-      x: e.clientX,
-      y: e.clientY
-    };
-
-    var left = scrollWindow ? scrollWindow.scrollLeft : 0;
-    var top =  scrollWindow ? scrollWindow.scrollTop : 0;
-    var x = e.clientX;
-    var y = e.clientY;
-
-    //document.addEventListener('mousemove', this.mouseMoveHandler(e, left, top, x, y));
-
-  }
-
-
-
-  testMethod2(){
-    alert('we mouse up');
-  }
-
+  
   mouseMoveHandler(e: MouseEvent, left: number, top: number, x: number, y: number){
     var scrollWindow = document.getElementById("parentScroll");
     const dx = e.clientX - x;
@@ -106,13 +78,6 @@ export class ExploreComponent {
     }
   }
 
-  // const mouseMoveHandler = function(e) {
-
-  // };
-
-  // moveMethod(e){
-
-  // }
 
   dfsTeachers(id : number, prevId : number, depth : number) : void {
     if (this.pianistsVisited.has(id)){
@@ -255,7 +220,6 @@ export class ExploreComponent {
           var teacherCoords = teacherButton?.getBoundingClientRect();
           var studentCoords = studentButton?.getBoundingClientRect();
           if (studentCoords != null && teacherCoords != null && buttonsCoords != null && canvasCoords != null && scrollWindow){
-            //var newLine = document.createElementNS('http://www.w3.org/2000/svg', "line");
             var newCurve = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
             var x1 = ((teacherCoords.left + teacherCoords.right - 0) / 2) + scrollWindow?.scrollLeft;
@@ -269,7 +233,6 @@ export class ExploreComponent {
 
             var attr = "M" + x1 + "," + y1 + " " + "C" + x2 + "," + y2 + " " + x3 + "," + y3 + " " + x4 + "," + y4;
 
-            //newCurve.setAttribute("d", "M100,100 C100,50 300,50 300,0");
             newCurve.setAttribute("d", attr);
             newCurve.setAttribute("stroke", "red");
             newCurve.setAttribute("stroke-width", "5");
@@ -283,19 +246,6 @@ export class ExploreComponent {
             newCurve.style.strokeWidth = "5px";
             
             c?.appendChild(newCurve);
-
-            // newLine.setAttribute("x1", (((teacherCoords.left + teacherCoords.right - 0) / 2) + scrollWindow?.scrollLeft).toString());
-            // newLine.setAttribute("y1", (canvasCoords.height + 3).toString());
-            // newLine.setAttribute("x2", (((studentCoords.left + studentCoords.right - 0) / 2) + scrollWindow?.scrollLeft).toString());
-            // newLine.setAttribute("y2", "-3");
-
-            // let colorString = "#";
-            // for (let i = 0; i < 3; i++){
-            //   colorString += ("0" + Math.floor(((1 + Math.random()) * Math.pow(16, 2)) / 2).toString(16)).slice(-2);
-            // }
-            // newLine.style.stroke = colorString;
-            // newLine.style.strokeWidth = "5px";
-            // c?.appendChild(newLine);
           }
         }
       }
@@ -332,11 +282,6 @@ export class ExploreComponent {
 
 
   ngAfterViewInit(): void {
-    // const viewportmeta = document.querySelector('meta[name=viewport]');
-    // if(viewportmeta){
-    //   viewportmeta.setAttribute('content', "initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0");
-    // }
-    // location.reload();
     var scale = 'scale(1)';
     document.body.style.webkitTransform =  scale;    // Chrome, Opera, Safari
     document.body.style.transform = scale;  
@@ -353,18 +298,11 @@ export class ExploreComponent {
 
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini|Mobile|mobile|CriOS/i.test(ua)){
       if(Number(this.route.snapshot.paramMap.has('isRefresh') && this.route.snapshot.paramMap.has('id') && Number(this.route.snapshot.paramMap.get('isRefresh')) == 0)){
-        //console.log("we are refreshing!");
         this.router.navigate(['/explore', Number(this.route.snapshot.paramMap.get('id')), 1]);
-        //location.reload();
         window.location.href = '/explore/' + Number(this.route.snapshot.paramMap.get('id')).toString() + '/1';
       }
     }
-    // if(Number(this.route.snapshot.paramMap.has('isRefresh') && this.route.snapshot.paramMap.has('id') && Number(this.route.snapshot.paramMap.get('isRefresh')) == 0)){
-    //   //console.log("we are refreshing!");
-    //   this.router.navigate(['/explore', Number(this.route.snapshot.paramMap.get('id')), 1]);
-    //   //location.reload();
-    //   window.location.href = '/explore/' + Number(this.route.snapshot.paramMap.get('id')).toString() + '/1';
-    // }
+  
 
 
     var scrollWindow = document.getElementById("parentScroll");
@@ -409,10 +347,6 @@ export class ExploreComponent {
 
           var walkY = (y - startY) * 1;
 
-          // if(walkY % 4 == 0){
-          //   document.documentElement.scrollTop = scrollTop - walkY;
-          // }
-
         }
       });
     }
@@ -455,7 +389,6 @@ export class ExploreComponent {
     this.router.navigate(['/explore', pianist.id, 0]).then(() => { window.location.reload();});
   }
 
-  pianistList : Pianist [] = UPDATEDPLAYERS;
 
   onSelect(pianist : Pianist): void {
     this.selectedPianist = pianist;
