@@ -1,5 +1,8 @@
 # MusicalGenealogy
 
+![Screen Shot 2023-06-24 at 5 17 30 PM (2)](https://github.com/MatthewJohnson257/MusicalGenealogy/assets/43222316/c5c860c5-f5d7-4a77-8fd1-57c6bf762099)
+
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.2.
 
 ## Development server
